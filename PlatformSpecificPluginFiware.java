@@ -160,32 +160,40 @@ public class PlatformSpecificPluginFiware extends PlatformPlugin {
 
         ArrayList<ObservationValue> obsList = new ArrayList();
         ObservationValue obsval = null;
-
-        if (fiwareData.temperature != null){
+  	
+	if (fiwareData.temperature != null){
             obsval = new ObservationValue(String.valueOf(fiwareData.temperature),
-                    new Property("temperature", Arrays.asList("temperature")),
-                    new UnitOfMeasurement("°C", "degree Celsius", Arrays.asList("degree Celsius")));
+                    new Property("temperature", "URI", Arrays.asList("temperature")),
+                    new UnitOfMeasurement("°C", "degree Celsius","URI", Arrays.asList("degree Celsius")));
 
             obsList.add(obsval);
         }
 
-        if (fiwareData.temperature != null){
-            obsval = new ObservationValue(String.valueOf(fiwareData.temperature),
-                    new Property("temperature", Arrays.asList("temperature")),
-                    new UnitOfMeasurement("°C", "degree Celsius", Arrays.asList("degree Celsius")));
+        if (fiwareData.NO2 != null){
+            obsval = new ObservationValue(String.valueOf(fiwareData.NO2),
+                    new Property("NO2",
+                            "http://www.symbiote-h2020.eu/ontology/bim/property#nitrogenDioxideConcentration",
+                            Arrays.asList("nitrogen dioxide concentration")),
+                    new UnitOfMeasurement(
+                            "μg/m3",
+                            "μg/m3",
+                            "http://www.symbiote-h2020.eu/ontology/bim/property#nitrogenDioxideConcentration",
+                            Arrays.asList("nitrogen dioxide concentration")
+                    )
+            );
 
             obsList.add(obsval);
         }
 
         if (fiwareData.windSpeed != null){
             obsval = new ObservationValue(String.valueOf(fiwareData.windSpeed),
-                    new Property("Wind Speed", Arrays.asList("Wind Speed")),
-                    new UnitOfMeasurement("km/h", "km/h", Arrays.asList("km/h")));
+                    new Property("Wind Speed","URI", Arrays.asList("Wind Speed")),
+                    new UnitOfMeasurement("km/h", "km/h","URI", Arrays.asList("km/h")));
 
             obsList.add(obsval);
         }
-
-        // repeat the above process for all observations
+       
+	// repeat the above process for all observations
 
         return new Observation(
                 fiwareData.id,
