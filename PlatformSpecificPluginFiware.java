@@ -163,8 +163,13 @@ public class PlatformSpecificPluginFiware extends PlatformPlugin {
   	
 	if (fiwareData.temperature != null){
             obsval = new ObservationValue(String.valueOf(fiwareData.temperature),
-                    new Property("temperature", "URI", Arrays.asList("temperature")),
-                    new UnitOfMeasurement("°C", "degree Celsius","URI", Arrays.asList("degree Celsius")));
+                    new Property("temperature",
+				 "http://purl.oclc.org/NET/ssnx/qu/dim#Temperature", 
+				 Arrays.asList("temperature")),
+                    new UnitOfMeasurement("°C", 
+					  "degree Celsius",
+					  "http://purl.oclc.org/NET/ssnx/qu/dim#Temperature", 
+					  Arrays.asList("degree Celsius")));
 
             obsList.add(obsval);
         }
@@ -184,16 +189,11 @@ public class PlatformSpecificPluginFiware extends PlatformPlugin {
 
             obsList.add(obsval);
         }
-
-        if (fiwareData.windSpeed != null){
-            obsval = new ObservationValue(String.valueOf(fiwareData.windSpeed),
-                    new Property("Wind Speed","URI", Arrays.asList("Wind Speed")),
-                    new UnitOfMeasurement("km/h", "km/h","URI", Arrays.asList("km/h")));
-
-            obsList.add(obsval);
-        }
        
 	// repeat the above process for all observations
+	// Make sure to define the correct URIs
+	// There are some made specifically for symbIoTe, find them here:
+	// https://github.com/symbiote-h2020/Ontologies/blob/master/v2.3.0/bim-property-v2.3.0.ttl
 
         return new Observation(
                 fiwareData.id,
